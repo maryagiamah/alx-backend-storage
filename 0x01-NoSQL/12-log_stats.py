@@ -12,7 +12,7 @@ print('Methods:')
 
 for stat in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
     count = nginx_col.count_documents({"method": stat})
-    print(f'\tmethod {stat}: {count}')
+    print(f'    method {stat}: {count}')
 
 count = nginx_col.count_documents({"method": "GET", "path": "/status"})
 print(f'{count} status check')
