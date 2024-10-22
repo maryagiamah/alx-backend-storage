@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 def count_logs(nginx_col):
     """Provides some stats about Nginx logs"""
-    count = nginx_col.count_documents({})
+    count = nginx_col.estimated_document_count()
     print(f'{count} logs')
     print('Methods:')
 
