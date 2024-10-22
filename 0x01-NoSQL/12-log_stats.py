@@ -11,7 +11,7 @@ def count_logs(nginx_col):
 
     for stat in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
         count = nginx_col.count_documents({"method": stat})
-        print(f'    method {stat}: {count}')
+        print(f'\tmethod {stat}: {count}')
 
     count = nginx_col.count_documents({"method": "GET", "path": "/status"})
     print(f'{count} status check')
