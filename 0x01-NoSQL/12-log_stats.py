@@ -14,5 +14,5 @@ if __name__ == "__main__":
         count = nginx_col.count_documents({"method": stat})
         print(f'    method {stat}: {count}')
 
-        count = nginx_col.count_documents({"method": "GET", "path": "/status"})
-        print(f'{count} status check')
+    count = nginx_col.count_documents({"method": "GET", "path": "/status"})
+    print(f'{count} status check')
