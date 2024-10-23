@@ -2,7 +2,7 @@
 """Create a Cache class"""
 import redis
 import uuid
-from typing import Union
+from typing import Union, Optional, Callable
 
 
 class Cache:
@@ -18,3 +18,18 @@ class Cache:
         key = str(uuid.uuid4())
         self._redis.set(key, data)
         return key
+
+    def get(self, key: str, fn: Optional[Callable] = None)
+    -> Union[str, bytes, int, float]:
+        """Get method"""
+        if key is None or fn is None:
+            return self._redis.get(key)
+        return fn(self._redis.get(key))
+
+    def get_str(self, key: str) -> str:
+        """Get str"""
+        return self._redis.get(key, lambda k: k.decode('utf-8'))
+
+    def get_int(self, key: str) -> int:
+        """Get int"""
+        return self._redis.get(key, int)
