@@ -22,7 +22,7 @@ class Cache:
     def get(self, key: str, fn: Optional[Callable] = None)
     -> Union[str, bytes, int, float]:
         """Get method"""
-        if key is None or fn is None:
+        if fn is None:
             return self._redis.get(key)
         return fn(self._redis.get(key))
 
@@ -32,4 +32,4 @@ class Cache:
 
     def get_int(self, key: str) -> int:
         """Get int"""
-        return self._redis.get(key, int)
+        return self._redis.get(key, lambda k: int(k.decode('utf-8')))
