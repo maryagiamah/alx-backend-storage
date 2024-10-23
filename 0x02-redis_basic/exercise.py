@@ -45,7 +45,7 @@ def replay(self, fn: Callable) -> None:
     ))
 
     for in_p, out_p in zip(in_list, out_list):
-        print("{fn.__qualname__}(*({in_p},)) -> {out_p}")
+        print(f"{fn.__qualname__}(*({in_p},)) -> {out_p}")
 
 
 class Cache:
