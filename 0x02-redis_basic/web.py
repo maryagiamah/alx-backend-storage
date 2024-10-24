@@ -34,4 +34,4 @@ def get_page(url: str) -> str:
 
 
 if __name__ == '__main__':
-    et_page('http://slowwly.robertomurray.co.uk')
+    get_page('http://slowwly.robertomurray.co.uk')
