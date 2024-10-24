@@ -30,3 +30,7 @@ def count_calls(method: Callable) -> Callable:
 def get_page(url: str) -> str:
     """Track how many times a particular URL was accessed"""
     return requests.get(url).text
+
+
+if __name__ == 'main':
+    get_page('http://slowwly.robertomurray.co.uk')
