@@ -13,12 +13,7 @@ def count_calls(method: Callable) -> Callable:
     @wraps(method)
     def wrapper(*args, **kwargs):
         """Returned Callable"""
-        key = f"count:{args[0]}"
-        red_loc.incr(key)
-        cache_res = red_loc.get(f"cache:{args[0]}")
-
-        if cache_res:
-            return cache_res.decode('utf-8')
+        red_loc.incr("count:{args[0]}")
         output = method(*args, **kwargs)
         red_loc.setex(f"cache:{args[0]}", 10, output)
         return output
@@ -33,4 +28,4 @@ def get_page(url: str) -> str:
 
 
 if __name__ == '__main__':
-    get_page('http://slowwly.robertomurray.co.uk')
+    print(get_page('http://slowwly.robertomurray.co.uk'))
