@@ -2,11 +2,13 @@
 import redis
 import requests
 from functools import wraps
+from typing import Callable
 """Implementing an expiring web cache and tracker"""
 
 red_loc = redis.Redis()
 
-def count_calls(method):
+
+def count_calls(method: Callable) -> Callable:
     """Decorator to count calls and implement caching"""
     @wraps(method)
     def wrapper(*args, **kwargs):
@@ -30,11 +32,13 @@ def count_calls(method):
 
     return wrapper
 
+
 @count_calls
 def get_page(url: str) -> str:
     """Fetch the content of a URL"""
     response = requests.get(url)
     return response.text
+
 
 if __name__ == '__main__':
     url = 'http://slowwly.robertomurray.co.uk/'
