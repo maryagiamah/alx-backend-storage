@@ -14,9 +14,10 @@ def count_calls(method: Callable) -> Callable:
         """Returned Callable"""
         key = f"count:{args[0]}"
         red_loc.incr(key)
+        cache_res = red_loc.get(f"cache:{args[0]}")
 
-        if red_loc.get(f"cache:{args[0]}"):
-            return red_loc.get(f"cached:{args[0]}").decode('utf-8')
+        if cache_res:
+            return cache_res.decode('utf-8')
         output = method(*args, **kwargs)
         red_loc.setex(f"cache:{args[0]}", 10, output)
         return output
