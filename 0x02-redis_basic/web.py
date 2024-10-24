@@ -16,11 +16,11 @@ def count_calls(method: Callable) -> Callable:
         count_key = f"count:{args[0]}"
         cache_key = f"cache:{args[0]}"
 
-        red_loc.incr(cache_key)
         cache_res = red_loc.get(cache_key)
 
         if cache_res:
             return cache_res.decode('utf-8')
+        red_loc.incr(cache_key)
         output = method(*args, **kwargs)
         red_loc.setex(cache_key, 10, output)
         return output
@@ -34,4 +34,4 @@ def get_page(url: str) -> str:
 
 
 if __name__ == '__main__':
-    get_page('http://slowwly.robertomurray.co.uk')
+    et_page('http://slowwly.robertomurray.co.uk')
