@@ -4,6 +4,7 @@ import requests
 from functools import wraps
 from typing import Callable
 
+
 def count_calls(method: Callable) -> Callable:
     """Count calls"""
     red_loc = redis.Redis()
@@ -13,9 +14,9 @@ def count_calls(method: Callable) -> Callable:
         """Returned Callable"""
         key = f"count:{args[0]}"
         red_loc.incr(key)
-        
+
         if red_loc.get(f"cache:{args[0]}"):
-            return method(*args, **kwargs)
+            return red_loc.get(f"cached:{args[0]}").decode('utf-8')
         output = method(*args, **kwargs)
         red_loc.setex(f"cache:{args[0]}", 10, output)
         return output
@@ -27,3 +28,7 @@ def count_calls(method: Callable) -> Callable:
 def get_page(url: str) -> str:
     """Track how many times a particular URL was accessed"""
     return requests.get(url).text  # Fix 'requests' spelling
+
+
+if __name__ == '__main__':
+    get_page('http://slowwly.robertomurray.co.uk')
