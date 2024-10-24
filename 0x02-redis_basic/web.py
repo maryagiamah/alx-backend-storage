@@ -32,4 +32,4 @@ def count_calls(method):
 def get_page(url: str) -> str:
     """Fetch the content of a URL"""
     response = requests.get(url)
-    return response.text)
+    return response.text
