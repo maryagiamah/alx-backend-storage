@@ -16,12 +16,11 @@ def count_calls(method: Callable) -> Callable:
         count_key = f"count:{url}"
         cache_key = f"cache:{url}"
 
+        red_loc.incr(count_key)
         cache_res = red_loc.get(cache_key)
 
         if cache_res:
             return cache_res.decode('utf-8')
-
-        red_loc.incr(count_key)
         output = method(url)
         red_loc.setex(cache_key, 10, output)
         return output
