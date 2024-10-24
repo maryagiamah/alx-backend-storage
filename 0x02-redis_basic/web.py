@@ -11,17 +11,18 @@ red_loc = redis.Redis()
 def count_calls(method: Callable) -> Callable:
     """Count calls"""
     @wraps(method)
-    def wrapper(*args, **kwargs):
+    def wrapper(url):
         """Returned Callable"""
-        count_key = f"count:{args[0]}"
-        cache_key = f"cache:{args[0]}"
+        count_key = f"count:{url}"
+        cache_key = f"cache:{url}"
 
         cache_res = red_loc.get(cache_key)
 
         if cache_res:
             return cache_res.decode('utf-8')
+
         red_loc.incr(cache_key)
-        output = method(*args, **kwargs)
+        output = method(url)
         red_loc.setex(cache_key, 10, output)
         return output
     return wrapper
