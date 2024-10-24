@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
+"""Implementing an expiring web cache and tracker"""
 import redis
 import requests
 from functools import wraps
 from typing import Callable
-"""Implementing an expiring web cache and tracker"""
 
 red_loc = redis.Redis()
 
