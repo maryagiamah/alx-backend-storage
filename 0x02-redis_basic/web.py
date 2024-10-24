@@ -3,6 +3,7 @@ import redis
 import requests
 from functools import wraps
 from typing import Callable
+"""Implementing an expiring web cache and tracker"""
 
 
 def count_calls(method: Callable) -> Callable:
@@ -29,7 +30,3 @@ def count_calls(method: Callable) -> Callable:
 def get_page(url: str) -> str:
     """Track how many times a particular URL was accessed"""
     return requests.get(url).text  # Fix 'requests' spelling
-
-
-if __name__ == '__main__':
-    get_page('http://slowwly.robertomurray.co.uk')
